@@ -124,18 +124,18 @@ footer { text-align:center; background:#111; padding:10px; text-shadow:0 0 8px #
         <div class="upload-terms">
             <p><strong>Condiciones de Upload:</strong></p>
             <ul>
-                <li>Solo se aceptan enlaces de descarga directa desde <strong>GitHub (.io)</strong> y <strong>Google Drive</strong>.</li>
-                <li>Los enlaces deben apuntar directamente al archivo APK. No se permiten redirecciones, publicidad engañosa ni páginas intermedias.</li>
-                <li>Todos los archivos deben enviarse primero al correo <strong>apks.store2025.comtct@gmail.com</strong> para revisión manual. Una vez aprobados, se proporcionará la contraseña para publicar.</li>
+                <li>Solo se aceptan links que terminen en <strong>.apk</strong>.</li>
+                <li>Los links deben apuntar directamente al archivo APK. No se permiten redirecciones ni publicidad engañosa.</li>
+                <li>Todos los links deben enviarse previamente al correo <strong>apks.store2025.comtct@gmail.com</strong> para revisión manual. Una vez aprobado, se proporcionará la contraseña para publicar.</li>
                 <li>No se permiten APKs 18+, ilegales, modificados con malware o sospechosos.</li>
                 <li>El incumplimiento de estas reglas puede resultar en un <strong>baneo permanente</strong> del usuario que intente subir contenido inapropiado.</li>
                 <li>Nos reservamos el derecho de rechazar cualquier archivo que no cumpla con los estándares de seguridad, legalidad y calidad.</li>
-                <li>El usuario que sube APKs es responsable de cumplir con todas las leyes locales e internacionales relativas a software, propiedad intelectual y privacidad.</li>
+                <li>El usuario que sube links es responsable de cumplir con todas las leyes locales e internacionales relativas a software, propiedad intelectual y privacidad.</li>
                 <li>La plataforma actúa solo como intermediaria para descargas seguras y no distribuye contenido ilegal o modificado sin autorización.</li>
             </ul>
         </div>
 
-        <button onclick="uploadApp()">Publicar APK</button>
+        <button onclick="uploadApp()">Publicar Link</button>
     </div>
 </div>
 
@@ -181,12 +181,6 @@ function showSection(id, btn){
     btn.classList.add('active');
 }
 
-// VERIFICACIÓN DE DOMINIOS
-function linkPermitido(url){
-    const permitidos = ["github.io","raw.githubusercontent.com","drive.google.com",".com",".io"];
-    return permitidos.some(d=>url.includes(d));
-}
-
 // UPLOAD
 function uploadApp(){
     const pass = prompt("🔒 Ingresa la contraseña para publicar:");
@@ -197,7 +191,7 @@ function uploadApp(){
     const link = appLink.value.trim();
 
     if(!name || !desc || !link){ alert("Completa todos los campos"); return; }
-    if(!linkPermitido(link)){ alert("❌ Link no permitido"); return; }
+
     if(!link.toLowerCase().endsWith(".apk")){ alert("❌ El link debe terminar en .apk"); return; }
 
     const card = document.createElement("div");
@@ -205,12 +199,12 @@ function uploadApp(){
     card.dataset.name = name.toLowerCase();
     card.dataset.desc = desc.toLowerCase();
     card.innerHTML = `<h3>${name}</h3><p>${desc}</p>
-        <a href="${link}" target="_blank" onclick="return confirm('Este enlace debe descargar un APK directamente. ¿Continuar?')">Descargar</a>`;
+        <a href="${link}" target="_blank" onclick="return confirm('Este link debe descargar un APK directamente. ¿Continuar?')">Descargar</a>`;
 
     document.getElementById("appsContainer").appendChild(card);
 
     appName.value = ""; appDesc.value = ""; appLink.value = "";
-    alert("✅ APK publicada correctamente");
+    alert("✅ Link publicado correctamente");
     showSection('feed', document.querySelectorAll('.nav-btn')[0]);
 }
 
@@ -225,4 +219,4 @@ function searchApps(query){
 }
 </script>
 </body>
-</html>
+    </html>
